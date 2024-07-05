@@ -19,5 +19,26 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+      fetch('https://yoga-api-nzy4.onrender.com/v1/categories')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log(data);
+          const categoriesDiv = document.getElementById('categories');
+          data.categories.forEach(category => {
+            const categoryElement = document.createElement('div');
+            categoryElement.textContent = category.name;
+            categoriesDiv.appendChild(categoryElement);
+          });
+        })
+        .catch(error => {
+          console.error('There has been a problem with your fetch operation:', error);
+        });
+    </script>
   </body>
 </html>
